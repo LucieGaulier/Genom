@@ -10,6 +10,7 @@ import math
 import numpy as np
 import pylab
 from scipy.stats import chisquare
+from sklearn.decomposition import PCA
 
 def genome_str(fichier):
 	"""
@@ -253,52 +254,6 @@ def distance_a_ref (liste_chaos, chaos_genome):
 		dist.append(euclidean_2chaos (chaos1, chaos_genome))
 	return np.array(dist)
 
-dico = genome_str("GCA_000017165.1_ASM1716v1_genomic.fna")
-dico2 = genome_str("GCA_000762265.1_ASM76226v1_genomic.fna")
-dico3 = genome_str("GCA_000953115.1_DSM1535_genomic.fna")
-dico_cool = genome_str("GCA_000016525.1_ASM1652v1_genomic.fna")
-dico_chelou = genome_str("GCA_001889405.1_ASM188940v1_genomic.fna")
-
-print len(dico.values()[0]), len(dico2.values()[0]), len(dico3.values()[0])
-#2.494.510 2.449.987 2.478.074
-k=2
-a = "CCTCACCAGCGGAAAGTTTAAATATGGATACCATACAATTTTTAGTACCTATTGCAATCTGCGGTGGATCCGCTCACATTGTATGCCCTGATACGATGTGGTCTGTGGTTTTACTTGCCCAGTCTGCATTGTGGAAATATTTATAAATAGATCCGGACAGATATTAATAGATGAATAGAGTAGATTTGTCCATATTTATCCCGGATTCACTGACGGCTGAGACAGGGGATCTCAAAATAAAGACCTACAAGGTGGGTCTCATTGCACGGGCCGCTTCGATATTCGGGGTTAAGCGTATAGTGATCTATCACGATGATGCAGATGGAGAGGCAAGGTTTATTAGGGATATCCTGACTTATATGGATACACCTCAATACCTTCGCAGGAAGGTTTTCCCGATAATGAGGGAGTTGAAACATGTGGGGATACTCCCACCTCTGAGAACTCCCCATCACCCAACCGGAAAACCCGTTACTGGTGAATACAGACAGGGACTGACAGTTAAAAGGGTAAAGAAAGGAACTCTTGTGGATATTGGCGCAGATAAACTTGCACTGTGCAGGGAAAAACTGACAGTGAATAGGATAATGAGTTTCAGGGTTGTCAGGTTGGGTAAGGAAATACTGATAGAGCCCGATGAACCAGACGATAGATACTGGGGATACGAGGTACTGGATACCCGGAGGAACCTCGCAGAGAGCCTTAAAACATTAGGTGCCGATGTTGTCGTGGCAACATCCAGGAAAGCTTCGCCCATTACTTCTATTCTGGATGAAGTAAAAACGAGGATGAGGGGGGCC"
-
-dico_seq, kmer_tot = kmer_sequence(dico2.values()[0],k)
-
-dico_freq = probabilities_dic (kmer_tot, dico_seq)
-
-chaos2 = np.array(chaos_game_representation(dico_freq,k))
-plot_CGR (chaos2, k)
-
-liste_chaos, chaos_genome, kmer_tot_genome, k_mer_list = parcours_genome_fenetre(dico_chelou.values()[0], 50000,50000, k)
-#print chi_square(liste_chaos, chaos_genome, k_mer_list) #on veut des p values grandes (non rejet de H0
-#print chi_square(liste_chaos, chaos2, k_mer_list) #on veut des p values petite (rejet de H0)
-
-#print liste_chaos
-dist2a2 = matrice_distance2a2(liste_chaos)
-#print dist2a2, dist2a2.shape
-
-plt.figure()
-plot_matrice_distance(dist2a2)
-plt.show()
-"""
-distancesAref = distance_a_ref (liste_chaos, chaos_genome)
-gen = euclidean_2chaos(chaos_genome, chaos2)
-
-plt.figure()
-plt.bar(range(0, len(distancesAref)), distancesAref)
-plt.plot((0, len(distancesAref)),(gen,gen),'k-')
-plt.ylim(0,0.1)
-plt.show()
-"""
-#print distancesAref
-#print gen
-
-#chaos = freq
-#on veut trouver les chaos qui sont les plus differents de tout les autres
-#on trouve les transferts : different de plus de la moitie des autres fenetre
-#si on en trouve plusieurs > on compare les transferts entre eux pour savoir si ils viennent du meme transfert ou non
 
 def tri_signature(dist2a2, seuil):
 	"""
@@ -371,26 +326,107 @@ def clustering_transferts_horizontaux(liste_index, dist2a2,seuil,mini):
 	chiffre_seuil = (maxi-mini)*seuil+mini
 	liste = dist2a2[liste_index].T[liste_index].T
 	clusters = []
-	for i, fen in enumerate(liste): #Parcourt 
+	for i, fen in enumerate(liste): #Parcourt les distances de la fenetre vs toutes les autres 
 		proches_i = liste_index[fen < chiffre_seuil] #indices des fenetres proches (inf seuil) de celle que l'on parcourt
 		in_cluster = False
 		for cl in xrange(len(clusters)):
 			if np.any(np.isin(proches_i, list(clusters[cl]))) :
-				clusters[cl].union(proches_i)
+				clusters[cl] = clusters[cl].union(proches_i)
 				in_cluster = True
 		if not in_cluster:
 			clusters.append(set(proches_i))
 	return clusters
 			
-				
-			
-			
+def pca(X,Y,n):
+    pca = PCA(n_components=n)
+    pca.fit(X)
+    X_pca = pca.transform(X)
+    X_back = pca.inverse_transform(X_pca)
+#    plt.figure()
+#    plt.title("projection by PCA")
+#    plt.scatter(X_pca[:, 0], X_pca[:, 1],marker='o', c=Y,s=25, edgecolor='k')
+#    plt.show()
+    return X_pca
+    
+"""
+#chaos = freq
+#on veut trouver les chaos qui sont les plus differents de tout les autres
+#on trouve les transferts : different de plus de la moitie des autres fenetre
+#si on en trouve plusieurs > on compare les transferts entre eux pour savoir si ils viennent du meme transfert ou non
+
+Recuperer signature des transferts et du genome.
+genome > le plus grand ? le majoraitaire, on part du principe que si transfert c'est "petite" patate
+
+cherche signature transfert dans les autres génome (BD)
+
+si plsr fois la meme espece > tri ?
+
+parfois N dans sequence
+
+Revoir un peu plus pour lhistoire de signature globale = signature parties
+"""
+
+	
+#dico = genome_str("GCA_000017165.1_ASM1716v1_genomic.fna")
+dico2 = genome_str("GCA_000762265.1_ASM76226v1_genomic.fna")
+dico3 = genome_str("GCA_000953115.1_DSM1535_genomic.fna")
+dico_cool = genome_str("GCA_000016525.1_ASM1652v1_genomic.fna")
+dico_chelou = genome_str("GCA_001889405.1_ASM188940v1_genomic.fna")
+
+print len(dico_cool.values()[0]), len(dico2.values()[0]), len(dico3.values()[0])
+#2.494.510 2.449.987 2.478.074
+k=5
+a = "CCTCACCAGCGGAAAGTTTAAATATGGATACCATACAATTTTTAGTACCTATTGCAATCTGCGGTGGATCCGCTCACATTGTATGCCCTGATACGATGTGGTCTGTGGTTTTACTTGCCCAGTCTGCATTGTGGAAATATTTATAAATAGATCCGGACAGATATTAATAGATGAATAGAGTAGATTTGTCCATATTTATCCCGGATTCACTGACGGCTGAGACAGGGGATCTCAAAATAAAGACCTACAAGGTGGGTCTCATTGCACGGGCCGCTTCGATATTCGGGGTTAAGCGTATAGTGATCTATCACGATGATGCAGATGGAGAGGCAAGGTTTATTAGGGATATCCTGACTTATATGGATACACCTCAATACCTTCGCAGGAAGGTTTTCCCGATAATGAGGGAGTTGAAACATGTGGGGATACTCCCACCTCTGAGAACTCCCCATCACCCAACCGGAAAACCCGTTACTGGTGAATACAGACAGGGACTGACAGTTAAAAGGGTAAAGAAAGGAACTCTTGTGGATATTGGCGCAGATAAACTTGCACTGTGCAGGGAAAAACTGACAGTGAATAGGATAATGAGTTTCAGGGTTGTCAGGTTGGGTAAGGAAATACTGATAGAGCCCGATGAACCAGACGATAGATACTGGGGATACGAGGTACTGGATACCCGGAGGAACCTCGCAGAGAGCCTTAAAACATTAGGTGCCGATGTTGTCGTGGCAACATCCAGGAAAGCTTCGCCCATTACTTCTATTCTGGATGAAGTAAAAACGAGGATGAGGGGGGCC"
+
+dico_seq, kmer_tot = kmer_sequence(dico2.values()[0],k)
+
+dico_freq = probabilities_dic (kmer_tot, dico_seq)
+
+chaos2 = np.array(chaos_game_representation(dico_freq,k))
+plot_CGR (chaos2, k)
+
+liste_chaos, chaos_genome, kmer_tot_genome, k_mer_list = parcours_genome_fenetre(dico_chelou.values()[0], 50000,50000, k)
+#print chi_square(liste_chaos, chaos_genome, k_mer_list) #on veut des p values grandes (non rejet de H0
+#print chi_square(liste_chaos, chaos2, k_mer_list) #on veut des p values petite (rejet de H0)
+
+#print liste_chaos
+dist2a2 = matrice_distance2a2(liste_chaos)
+#print dist2a2, dist2a2.shape
+
+plt.figure()
+plot_matrice_distance(dist2a2)
+plt.show()
+"""
+distancesAref = distance_a_ref (liste_chaos, chaos_genome)
+gen = euclidean_2chaos(chaos_genome, chaos2)
+
+plt.figure()
+plt.bar(range(0, len(distancesAref)), distancesAref)
+plt.plot((0, len(distancesAref)),(gen,gen),'k-')
+plt.ylim(0,0.1)
+plt.show()
+"""
+#print distancesAref
+#print gen	
 
 #print trouver_transferts_moyenne(dist2a2, 0.60)
 
-index,m = tri_signature(dist2a2, 0.50)
+index,m = tri_signature(dist2a2, 0.45)
 print index
-b = clustering_transferts_horizontaux(index,dist2a2,0.50,m)
+b = clustering_transferts_horizontaux(index,dist2a2,0.45,m)
 print "clusters", b
 
+liste_y = [0 for i in range(len(dist2a2))]
+for j in range(1,len(b)+1):
+    for k in range(len(b[j-1])):
+        liste_y[list(b[j-1])[k]] = j
+        
+#liste_y[-1] = 3
 
+z = pca(dist2a2,liste_y,2)
+plt.figure()
+plt.plot(z)
+plt.show()
+plt.figure()
+plt.scatter(z[:,0],z[:,1],marker='o',s=25,c=liste_y)
+plt.show()
