@@ -1,0 +1,58 @@
+Acholeplasma laidlawii PG-8A
+Acidobacterium capsulatum ATCC 51196
+Akkermansia muciniphila ATCC BAA-835
+Alicyclobacillus acidocaldarius subsp. acidocaldarius DSM 446
+Aquifex aeolicus VF5
+Bacillus cereus Q1
+Bacillus pseudofirmus OF4
+Bacteroides fragilis YCH46
+Bdellovibrio bacteriovorus HD100
+Bordetella pertussis Tohama I
+Borrelia burgdorferi B31
+Campylobacter jejuni subsp. jejuni 81-176
+Candidatus Amoebophilus asiaticus 5a2
+Candidatus Cloacamonas acidaminovorans
+Candidatus Endomicrobium sp. Rs-D17
+Carboxydothermus hydrogenoformans Z-2901
+Chlamydia trachomatis 434/Bu
+Chlorobium chlorochromatii CaD3
+Chloroflexus aurantiacus J-10-fl
+Clostridium acetobutylicum ATCC 824
+Corynebacterium glutamicum ATCC 13032
+Coxiella burnetii RSA 493
+Cupriavidus taiwanensis
+Cyanothece sp. ATCC 51142
+Dehalococcoides ethenogenes 195
+Deinococcus radiodurans R1
+Dictyoglomus thermophilum H-6-12
+Elusimicrobium minutum Pei191
+Fibrobacter succinogenes subsp. succinogenes S85
+Flavobacterium psychrophilum JIP02/86
+Fusobacterium nucleatum subsp. nucleatum ATCC 25586
+Gemmata obscuriglobus UQM 2246
+Gemmatimonas aurantiaca T-27
+Gloeobacter violaceus PCC 7421
+Leptospira interrogans serovar Lai str. 56601
+Magnetococcus sp. MC-1
+Methylacidiphilum infernorum V4
+Mycoplasma genitalium G37
+Nostoc punctiforme PCC 73102
+Opitutus terrae PB90-1
+Pedobacter heparinus DSM 2366
+Pirellula staleyi DSM 6068
+Prochlorococcus marinus str. AS9601
+Psychrobacter arcticus 273-4
+Rhizobium leguminosarum bv. trifolii WSM1325
+Rhodopirellula baltica SH 1
+Rhodospirillum rubrum ATCC 11170
+Rickettsia rickettsii str. Iowa
+Shewanella putrefaciens CN-32
+Solibacter usitatus Ellin6076
+Synechococcus elongatus PCC 6301
+Thermanaerovibrio acidaminovorans DSM 6589
+Thermoanaerobacter tengcongensis MB4
+Thermobaculum terrenum ATCC BAA-798
+Thermodesulfovibrio yellowstonii DSM 11347
+Thermomicrobium roseum DSM 5159
+Thermotoga maritima MSB8
+Thermus thermophilus HB8
