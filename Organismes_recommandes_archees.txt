@@ -31,7 +31,7 @@ Methanosphaera stadtmanae DSM 3091
 Methanospirillum hungatei JF-1
 Methanoregula boonei 6A8
 Methanosphaerula palustris E1-9c
-Methanothrix thermoacetophila PT4
+Methanothrix thermoacetophila PT
 Nanoarchaeum equitans Kin4-M
 Natronomonas pharaonis DSM 2160
 Nitrosopumilus maritimus SCM1
