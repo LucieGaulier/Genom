@@ -1,0 +1,52 @@
+Aeropyrum pernix K1
+Archaeoglobus fulgidus DSM 4304
+Archaeoglobus profundus DSM 5631
+Caldivirga maquilingensis IC-167
+Candidatus Korarchaeum cryptofilum OPF8
+Desulfurococcus amylolyticus 1221n
+Haloarcula marismortui ATCC 43049
+Halobacterium salinarum NRC-1
+Halomicrobium mukohataei DSM 12286
+Haloquadratum walsbyi DSM 16790
+Halorhabdus utahensis DSM 12940
+Halorubrum lacusprofundi ATCC 49239
+Haloterrigena turkmenica DSM 5511
+Hyperthermus butylicus DSM 5456
+Ignicoccus hospitalis KIN4/I
+Metallosphaera sedula DSM 5348
+Methanobrevibacter ruminantium M1
+Methanocaldococcus fervens AG86
+Methanocella paludicola SANAE
+Methanococcoides burtonii DSM 6242
+Methanococcus aeolicus Nankai-3
+Methanococcus maripaludis C6
+Methanococcus vannielii SB
+Methanocorpusculum labreanum Z
+Methanoculleus marisnigri JR1
+Methanopyrus kandleri AV19
+Methanosarcina acetivorans C2A
+Methanosarcina barkeri str. Fusaro
+Methanosarcina mazei Go1
+Methanosphaera stadtmanae DSM 3091
+Methanospirillum hungatei JF-1
+Methanoregula boonei 6A8
+Methanosphaerula palustris E1-9c
+Methanothrix thermoacetophila PT4
+Nanoarchaeum equitans Kin4-M
+Natronomonas pharaonis DSM 2160
+Nitrosopumilus maritimus SCM1
+Picrophilus torridus DSM 9790
+Pyrobaculum aerophilum str. IM2
+Pyrobaculum arsenaticum DSM 13514
+Pyrobaculum neutrophilum V24Sta
+Pyrococcus abyssi GE5
+Pyrococcus furiosus DSM 3638
+Pyrococcus horikoshii OT3
+Staphylothermus marinus F1
+Sulfolobus acidocaldarius DSM 639
+Sulfolobus solfataricus P2
+Thermococcus gammatolerans EJ3
+Thermofilum pendens Hrk 5
+Thermoplasma acidophilum DSM 1728
+Thermoplasma volcanium GSS1
+Cenarchaeum symbiosum A
