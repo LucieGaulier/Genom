@@ -66,8 +66,8 @@ Bordetella pertussis Tohama I
 Borrelia burgdorferi B31
 Campylobacter jejuni subsp. jejuni 81-176
 Candidatus Amoebophilus asiaticus 5a2
-Candidatus Cloacamonas acidaminovorans
-Candidatus Endomicrobium sp. Rs-D17
+Candidatus Cloacimonas acidaminovorans
+Candidatus Endomicrobium trichonymphae Rs-D17
 Carboxydothermus hydrogenoformans Z-2901
 Chlamydia trachomatis 434/Bu
 Chlorobium chlorochromatii CaD3

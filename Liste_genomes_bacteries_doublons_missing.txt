@@ -1,3 +1,4 @@
+#Par rapport à Organismes_recommandes_bacteries.txt, voit les noms d'espèce des doublons (sur meme ligne) et les lignes vides (especes avc genome non complet ou non trouvées)
 Acholeplasma laidlawii PG-8A
 Acidobacterium capsulatum ATCC 51196
 Akkermansia muciniphila ATCC BAA-835
@@ -11,21 +12,21 @@ Bordetella pertussis Tohama I
 Borrelia burgdorferi B31
 Campylobacter jejuni subsp. jejuni 81-176
 Candidatus Amoebophilus asiaticus 5a2
-Candidatus Cloacimonas acidaminovorans
+Candidatus Cloacimonas acidaminovorans str. Evry
 Candidatus Endomicrobium trichonymphae
 Carboxydothermus hydrogenoformans Z-2901
 Chlamydia trachomatis 434/Bu
 Chlorobium chlorochromatii CaD3
 Chloroflexus aurantiacus J-10-fl
 Clostridium acetobutylicum ATCC 824
-Corynebacterium glutamicum ATCC 13032
+Corynebacterium glutamicum ATCC 13032 Corynebacterium glutamicum ATCC 13032
 Coxiella burnetii RSA 493
 Cyanothece sp. ATCC 51142
 Dehalococcoides mccartyi 195
-Deinococcus radiodurans R1
+Deinococcus radiodurans R1 Deinococcus radiodurans R1
 Dictyoglomus thermophilum H-6-12
 Elusimicrobium minutum Pei191
-Fibrobacter succinogenes subsp. succinogenes S85
+Fibrobacter succinogenes subsp. succinogenes S85 Fibrobacter succinogenes subsp. succinogenes S85
 Flavobacterium psychrophilum JIP02/86
 Fusobacterium nucleatum subsp. nucleatum ATCC 25586
 Gemmatimonas aurantiaca T-27
@@ -45,14 +46,14 @@ Rhodopirellula baltica SH 1
 Rhodospirillum rubrum ATCC 11170
 Rickettsia rickettsii str. Iowa
 Shewanella putrefaciens CN-32
-Solibacter usitatus Ellin6076
+Candidatus Solibacter usitatus Ellin6076
 Synechococcus elongatus PCC 6301
 Thermanaerovibrio acidaminovorans DSM 6589
 Caldanaerobacter subterraneus subsp. tengcongensis MB4
 Thermobaculum terrenum ATCC BAA-798
 Thermodesulfovibrio yellowstonii DSM 11347
 Thermomicrobium roseum DSM 5159
-Thermotoga maritima MSB8
+Thermotoga maritima MSB8 Thermotoga maritima MSB8 Thermotoga maritima MSB8 Thermotoga maritima MSB8
 Thermus thermophilus HB8
-Gemmata obscuriglobus UQM 2246
-Cupriavidus taiwanensis
+
+
