@@ -16,7 +16,7 @@ from collections import OrderedDict
 from matplotlib import pyplot as plt
 from matplotlib import cm
 import math
-from Bio import SeqIO
+##from Bio import SeqIO #### PAS BESOIN DU MAIN DANS CE PROJET
 import operator
 
 def main():
