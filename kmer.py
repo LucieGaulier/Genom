@@ -343,50 +343,51 @@ def clustering_transferts_horizontaux(liste_index, dist2a2,seuil,mini):
 	return clusters
 			
 def pca(X,Y,n):
-    pca = PCA(n_components=n)
-    pca.fit(X)
-    X_pca = pca.transform(X)
-    X_back = pca.inverse_transform(X_pca)
-#    plt.figure()
-#    plt.title("projection by PCA")
-#    plt.scatter(X_pca[:, 0], X_pca[:, 1],marker='o', c=Y,s=25, edgecolor='k')
-#    plt.show()
-    return X_pca
+	pca = PCA(n_components=n)
+	pca.fit(X)
+	X_pca = pca.transform(X)
+	X_back = pca.inverse_transform(X_pca)
+#	plt.figure()
+#	plt.title("projection by PCA")
+#	plt.scatter(X_pca[:, 0], X_pca[:, 1],marker='o', c=Y,s=25, edgecolor='k')
+#	plt.show()
+	return X_pca
+
 
 
 
 def jsdiv(P, Q):
-    """Compute the Jensen-Shannon divergence between two probability distributions.
-
-    Input
-    -----
-    P, Q : array-like
+	"""Compute the Jensen-Shannon divergence between two probability distributions.
+	
+	Input
+	-----
+	P, Q : array-like
 	Probability distributions of equal length that sum to 1
-
-    commentaire : fonction prise sur internet
-    0 : proche, 1 loin
-    """
-
-    def _kldiv(A, B):
-	return np.sum([v for v in A * np.log2(A/B) if not np.isnan(v)])
-
-    P = np.array(P)
-    Q = np.array(Q)
-
-    M = 0.5 * (P + Q)
-
-    return 0.5 * (_kldiv(P, M) +_kldiv(Q, M))
+	
+	commentaire : fonction prise sur internet
+	0 : proche, 1 loin
+	"""
+	
+	def _kldiv(A, B):
+		return np.sum([v for v in A * np.log2(A/B) if not np.isnan(v)])
+	
+	P = np.array(P)
+	Q = np.array(Q)
+	
+	M = 0.5 * (P + Q)
+	
+	return 0.5 * (_kldiv(P, M) +_kldiv(Q, M))
 
 
 
 def matrice_distance2a2_jsdiv (liste_chaos) :
 	"""
 	Matrice des distances 2 a 2 jensen : fenetres vs fenetres
-
+	
 	-------
 	input :
 	liste_chaos : Liste des arrays chaos (freq k-mer) pour chaque fenetre de genome
-
+	
 	-------
 	output :
 	dist2a2 : matrice des distances numpy
@@ -401,32 +402,32 @@ def matrice_distance2a2_jsdiv (liste_chaos) :
 
 
 def signature_principale(index, liste_chaos,seuil):
-    """
-    retourne la signature d'un genome sans les "transferts" suppose
+	"""
+	retourne la signature d'un genome sans les "transferts" suppose
 
-    inputs :
-    index : fonction tri_signature
-    liste_chaos : liste des chaos des k mers
-    seuil :seuil : float, pourcentage (0.75 pour 75%) de l'etendue des distances (max et min) au dessus de laquelle on considere que la fenetre est eloignee
-    """
-    liste_sign = []
-    for i in range(len(dist2a2)):
-	if i not in index :
-	    liste_sign.append(liste_chaos[i])       
-    temp = sum(liste_sign)/len(liste_sign)
-    return temp,liste_sign
+	inputs :
+	index : fonction tri_signature
+	liste_chaos : liste des chaos des k mers
+	seuil :seuil : float, pourcentage (0.75 pour 75%) de l'etendue des distances (max et min) au dessus de laquelle on considere que la fenetre est eloignee
+	"""
+	liste_sign = []
+	for i in range(len(dist2a2)):
+		if i not in index :
+			liste_sign.append(liste_chaos[i])       
+	temp = sum(liste_sign)/len(liste_sign)
+	return temp,liste_sign
 
-def signature_cluster(clusters,liste_chaos):
-    liste = []
-    liste_cl  = []
-    for i in clusters :
-	liste_temp = []
-	for j in i :
-	    liste_temp.append(liste_chaos[j])
-	temp = sum(liste_temp)/len(liste_temp)
-	liste.append(temp)
-	liste_cl.append(liste_temp)
-    return liste,liste_cl
+def signature_cluster(clusters, liste_chaos):
+	liste = []
+	liste_cl  = []
+	for i in clusters :
+		liste_temp = []
+		for j in i :
+		    liste_temp.append(liste_chaos[j])
+		temp = sum(liste_temp)/len(liste_temp)
+		liste.append(temp)
+		liste_cl.append(liste_temp)
+	return liste, liste_cl
 
 if __name__ == "__main__":
 	"""
