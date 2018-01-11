@@ -10,7 +10,8 @@ import math
 import numpy as np
 import pylab
 from scipy.stats import chisquare
-#from sklearn.decomposition import PCA
+from sklearn.decomposition import PCA
+from sklearn.cluster import AgglomerativeClustering
 
 def genome_str(fichier):
 	"""
@@ -266,7 +267,7 @@ def tri_signature(dist2a2, seuil):
 
 	-----
 	input :
-	seuil -float, pourcentage (0.75 pour 75%) de l'etendue des distances (max et min) au 		dessus de laquelle on considere que la fenetre est eloignee
+	seuil -float, pourcentage (0.75 pour 75%) de l'etendue des distances (max et min) au 	dessus de laquelle on considere que la fenetre est eloignee
 	dist2a2 - matrice des distances 2 a 2 numpy entre les fenetres du genome
 
 	-----
@@ -329,6 +330,8 @@ def clustering_transferts_horizontaux(liste_index, dist2a2,seuil,mini):
 	maxi = np.max(dist2a2)
 	liste_index = np.array(liste_index)
 	chiffre_seuil = (maxi-mini)*seuil+mini
+	print type(liste_index)
+	print liste_index
 	liste = dist2a2[liste_index].T[liste_index].T
 	clusters = []
 	for i, fen in enumerate(liste): #Parcourt les distances de la fenetre vs toutes les autres 
@@ -343,51 +346,49 @@ def clustering_transferts_horizontaux(liste_index, dist2a2,seuil,mini):
 	return clusters
 			
 def pca(X,Y,n):
-	pca = PCA(n_components=n)
-	pca.fit(X)
-	X_pca = pca.transform(X)
-	X_back = pca.inverse_transform(X_pca)
-#	plt.figure()
-#	plt.title("projection by PCA")
-#	plt.scatter(X_pca[:, 0], X_pca[:, 1],marker='o', c=Y,s=25, edgecolor='k')
-#	plt.show()
-	return X_pca
-
+    pca = PCA(n_components=n)
+    pca.fit(X)
+    X_pca = pca.transform(X)
+    plt.figure()
+    plt.title("projection by PCA")
+    plt.scatter(X_pca[:, 0], X_pca[:, 1],marker='o', c=Y,s=25, edgecolor='k')
+    plt.show()
+    #return X_pca
 
 
 
 def jsdiv(P, Q):
-	"""Compute the Jensen-Shannon divergence between two probability distributions.
-	
-	Input
-	-----
-	P, Q : array-like
+    """Compute the Jensen-Shannon divergence between two probability distributions.
+
+    Input
+    -----
+    P, Q : array-like
 	Probability distributions of equal length that sum to 1
-	
-	commentaire : fonction prise sur internet
-	0 : proche, 1 loin
-	"""
-	
-	def _kldiv(A, B):
-		return np.sum([v for v in A * np.log2(A/B) if not np.isnan(v)])
-	
-	P = np.array(P)
-	Q = np.array(Q)
-	
-	M = 0.5 * (P + Q)
-	
-	return 0.5 * (_kldiv(P, M) +_kldiv(Q, M))
+
+    commentaire : fonction prise sur internet
+    0 : proche, 1 loin
+    """
+
+    def _kldiv(A, B):
+	return np.sum([v for v in A * np.log2(A/B) if not np.isnan(v)])
+
+    P = np.array(P)
+    Q = np.array(Q)
+
+    M = 0.5 * (P + Q)
+
+    return 0.5 * (_kldiv(P, M) +_kldiv(Q, M))
 
 
 
 def matrice_distance2a2_jsdiv (liste_chaos) :
 	"""
 	Matrice des distances 2 a 2 jensen : fenetres vs fenetres
-	
+
 	-------
 	input :
 	liste_chaos : Liste des arrays chaos (freq k-mer) pour chaque fenetre de genome
-	
+
 	-------
 	output :
 	dist2a2 : matrice des distances numpy
@@ -402,32 +403,32 @@ def matrice_distance2a2_jsdiv (liste_chaos) :
 
 
 def signature_principale(index, liste_chaos,seuil):
-	"""
-	retourne la signature d'un genome sans les "transferts" suppose
+    """
+    retourne la signature d'un genome sans les "transferts" suppose
 
-	inputs :
-	index : fonction tri_signature
-	liste_chaos : liste des chaos des k mers
-	seuil :seuil : float, pourcentage (0.75 pour 75%) de l'etendue des distances (max et min) au dessus de laquelle on considere que la fenetre est eloignee
-	"""
-	liste_sign = []
-	for i in range(len(dist2a2)):
-		if i not in index :
-			liste_sign.append(liste_chaos[i])       
-	temp = sum(liste_sign)/len(liste_sign)
-	return temp,liste_sign
+    inputs :
+    index : fonction tri_signature
+    liste_chaos : liste des chaos des k mers
+    seuil :seuil : float, pourcentage (0.75 pour 75%) de l'etendue des distances (max et min) au dessus de laquelle on considere que la fenetre est eloignee
+    """
+    liste_sign = []
+    for i in range(len(dist2a2)):
+	if i not in index :
+	    liste_sign.append(liste_chaos[i])       
+    temp = sum(liste_sign)/len(liste_sign)
+    return temp,liste_sign
 
-def signature_cluster(clusters, liste_chaos):
-	liste = []
-	liste_cl  = []
-	for i in clusters :
-		liste_temp = []
-		for j in i :
-		    liste_temp.append(liste_chaos[j])
-		temp = sum(liste_temp)/len(liste_temp)
-		liste.append(temp)
-		liste_cl.append(liste_temp)
-	return liste, liste_cl
+def signature_cluster(clusters,liste_chaos):
+    liste = []
+    liste_cl  = []
+    for i in clusters :
+	liste_temp = []
+	for j in i :
+	    liste_temp.append(liste_chaos[j])
+	temp = sum(liste_temp)/len(liste_temp)
+	liste.append(temp)
+	liste_cl.append(liste_temp)
+    return liste,liste_cl
 
 if __name__ == "__main__":
 	"""
@@ -447,19 +448,19 @@ if __name__ == "__main__":
 
 	Revoir un peu plus pour lhistoire de signature globale = signature parties
 
-	pour signature il faut des fenetres + grande (100 000, 100 000) mais pour les signatures une plus petite (50 000, 50 000)
+	pour signature il faut des fenetres + grande (100 000, 100 000) mais pour les transfert une plus petite (50 000, 50 000)
 	"""
 
 
 	#dico = genome_str("GCA_000017165.1_ASM1716v1_genomic.fna")
-	dico2 = genome_str("GCA_000762265.1_ASM76226v1_genomic.fna")
-	dico3 = genome_str("GCA_000953115.1_DSM1535_genomic.fna")
-	dico_cool = genome_str("GCA_000016525.1_ASM1652v1_genomic.fna")
-	dico_chelou = genome_str("GCA_001889405.1_ASM188940v1_genomic.fna")
+	dico = genome_str("GCA_000166095.1_ASM16609v1_genomic.fna")
+	dico2 = genome_str("GCA_000006175.2_ASM617v2_genomic.fna")
+	dico3 = genome_str("GCA_000341715.1_ASM34171v1_genomic.fna")
+	dico4 = genome_str("GCA_001889405.1_ASM188940v1_genomic.fna")
 
 	#dico4 = genome_str("GCA_000011125.1_ASM1112v1_genomic.fna")
 
-	print len(dico_cool.values()[0]), len(dico2.values()[0]), len(dico3.values()[0])
+	
 	#2.494.510 2.449.987 2.478.074
 	k=4
 	a = "CCTCACCAGCGGAAAGTTTAAATATGGATACCATACAATTTTTAGTACCTATTGCAATCTGCGGTGGATCCGCTCACATTGTATGCCCTGATACGATGTGGTCTGTGGTTTTACTTGCCCAGTCTGCATTGTGGAAATATTTATAAATAGATCCGGACAGATATTAATAGATGAATAGAGTAGATTTGTCCATATTTATCCCGGATTCACTGACGGCTGAGACAGGGGATCTCAAAATAAAGACCTACAAGGTGGGTCTCATTGCACGGGCCGCTTCGATATTCGGGGTTAAGCGTATAGTGATCTATCACGATGATGCAGATGGAGAGGCAAGGTTTATTAGGGATATCCTGACTTATATGGATACACCTCAATACCTTCGCAGGAAGGTTTTCCCGATAATGAGGGAGTTGAAACATGTGGGGATACTCCCACCTCTGAGAACTCCCCATCACCCAACCGGAAAACCCGTTACTGGTGAATACAGACAGGGACTGACAGTTAAAAGGGTAAAGAAAGGAACTCTTGTGGATATTGGCGCAGATAAACTTGCACTGTGCAGGGAAAAACTGACAGTGAATAGGATAATGAGTTTCAGGGTTGTCAGGTTGGGTAAGGAAATACTGATAGAGCCCGATGAACCAGACGATAGATACTGGGGATACGAGGTACTGGATACCCGGAGGAACCTCGCAGAGAGCCTTAAAACATTAGGTGCCGATGTTGTCGTGGCAACATCCAGGAAAGCTTCGCCCATTACTTCTATTCTGGATGAAGTAAAAACGAGGATGAGGGGGGCC"
@@ -471,15 +472,15 @@ if __name__ == "__main__":
 	chaos2 = np.array(chaos_game_representation(dico_freq,k))
 	plot_CGR (chaos2, k)
 
-	liste_chaos, chaos_genome, kmer_tot_genome, k_mer_list = parcours_genome_fenetre(dico_chelou.values()[0], 50000,50000, k)
+	liste_chaos, chaos_genome, kmer_tot_genome, k_mer_list = parcours_genome_fenetre(dico.values()[0], 5000,5000, k)
 	#print chi_square(liste_chaos, chaos_genome, k_mer_list) #on veut des p values grandes (non rejet de H0
 	#print chi_square(liste_chaos, chaos2, k_mer_list) #on veut des p values petite (rejet de H0)
-	liste_chaos2, chaos_genome2, kmer_tot_genome2, k_mer_list2 = parcours_genome_fenetre(dico2.values()[0], 50000,50000, k)
+	liste_chaos2, chaos_genome2, kmer_tot_genome2, k_mer_list2 = parcours_genome_fenetre(dico2.values()[0], 5000,5000, k)
 	liste_chaos3, chaos_genome3, kmer_tot_genome3, k_mer_list3 = parcours_genome_fenetre(dico3.values()[0], 50000,50000, k)
-	#liste_chaos4, chaos_genome4, kmer_tot_genome4, k_mer_list4 = parcours_genome_fenetre(dico4.values()[0], 50000,50000, k)
+	liste_chaos4, chaos_genome4, kmer_tot_genome4, k_mer_list4 = parcours_genome_fenetre(dico4.values()[0], 50000,50000, k)
 
 	#print liste_chaos
-	dist2a2 = matrice_distance2a2(liste_chaos)
+	dist2a2 = matrice_distance2a2_jsdiv(liste_chaos)
 	#print dist2a2, dist2a2.shape
 
 	plt.figure()
@@ -491,12 +492,12 @@ if __name__ == "__main__":
 	#print distancesAref
 	#print gen	
 
-	#print trouver_transferts_moyenne(dist2a2, 0.60)
+	print trouver_transferts_moyenne(dist2a2, 0.40)
 
-	index,m = tri_signature(dist2a2, 0.45)
-	print index
-	b = clustering_transferts_horizontaux(index,dist2a2,0.45,m)
-	print "clusters", b
+	index,m = tri_signature(dist2a2, 0.40)
+	#print index
+	b = clustering_transferts_horizontaux(index,dist2a2,0.40,m)
+	#print "clusters", b
 
 	liste_y = [0 for i in range(len(dist2a2))]
 	for j in range(1,len(b)+1):
@@ -514,12 +515,12 @@ if __name__ == "__main__":
 	plt.show()"""
 
 	distancesAref = distance_a_ref (liste_chaos, chaos_genome)
-	gen = euclidean_2chaos(chaos_genome, chaos2)
+	gen = jsdiv(np.ndarray.flatten(chaos_genome), np.ndarray.flatten(chaos2))
 
 	pp,liste_sign = signature_principale(index,liste_chaos,0.45)
 	cl,liste_cl = signature_cluster(b,liste_chaos)
-	gen2 = euclidean_2chaos(chaos_genome, pp)
-	gen3 = euclidean_2chaos(chaos_genome, cl[0])
+	gen2 = jsdiv(np.ndarray.flatten(chaos_genome),np.ndarray.flatten(pp))
+	gen3 = jsdiv(np.ndarray.flatten(chaos_genome), np.ndarray.flatten(cl[0]))
 	#gen4 = euclidean_2chaos(chaos_genome, cl[1])
 
 	plt.figure()
@@ -539,3 +540,33 @@ if __name__ == "__main__":
 
 	transfert ?
 	"""
+
+
+for i in range(len(liste_chaos)):
+	liste_chaos[i] = np.ndarray.flatten(liste_chaos[i])
+for i in range(len(liste_chaos2)):
+	liste_chaos2[i] = np.ndarray.flatten(liste_chaos2[i])	
+for i in range(len(liste_chaos3)):
+	liste_chaos3[i] = np.ndarray.flatten(liste_chaos3[i])	
+for i in range(len(liste_chaos4)):
+	liste_chaos4[i] = np.ndarray.flatten(liste_chaos4[i])
+
+	
+liste_hierar = liste_chaos + liste_chaos2 + liste_chaos3 + liste_chaos4
+Y=[]
+
+for i in range(len(liste_chaos)):
+	Y.append(0)
+	
+for i in range(len(liste_chaos2)):
+	Y.append(1)
+
+for i in range(len(liste_chaos3)):
+	Y.append(2)	
+
+for i in range(len(liste_chaos4)):
+	Y.append(3)	
+ 
+for linkage in ('ward', 'average', 'complete'):
+	clustering = AgglomerativeClustering(linkage=linkage, n_clusters=2)
+	clustering.fit(liste_hierar)
