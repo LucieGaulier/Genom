@@ -20,14 +20,14 @@ directory_chaos = sys.argv[1]
 directory_genomes = sys.argv[2]
 liste_genomes = os.listdir(directory_genomes) #liste des files dans ce directory
 
-k = 6
+k = 4
 fenetres = True
-taille = 50000
-pas = 50000
+taille = 5000
+pas = 5000
 
 for genome in liste_genomes :
 	dico = genome_str(directory_genomes + "/" + genome)
-	name = "_".join(dico.keys()[0].split(",")[0].split(" ")[1:])
+	name = "_".join(dico.keys()[0].split(",")[0].split(" ")[1:]).replace("/","_")
 	print name
 	os.system("mkdir "+ directory_chaos + "/" + name )
 	if fenetres :
