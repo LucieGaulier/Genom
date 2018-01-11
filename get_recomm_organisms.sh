@@ -4,6 +4,8 @@ if [[ $# -lt 2 ]] ; then
     exit 1
 fi
 
+rm -f tmp2.txt
+
 while IFS='' read -r line2 || [[ -n "$line2" ]]; do
 echo "species $line2"
 grep "$line2" $1 |awk -F"\t" '$12=="Complete Genome"{print $20}' > tmp.txt #Adresses web des dossiers des especes d'archaea a genome complet de la liste donnee ds le fichier en arg 2 #$20 l'adresse, $8 le nom.
