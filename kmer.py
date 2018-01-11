@@ -380,7 +380,7 @@ dico3 = genome_str("GCA_000953115.1_DSM1535_genomic.fna")
 dico_cool = genome_str("GCA_000016525.1_ASM1652v1_genomic.fna")
 dico_chelou = genome_str("GCA_001889405.1_ASM188940v1_genomic.fna")
 
-dico4 = genome_str("GCA_000011125.1_ASM1112v1_genomic.fna")
+#dico4 = genome_str("GCA_000011125.1_ASM1112v1_genomic.fna")
 
 print len(dico_cool.values()[0]), len(dico2.values()[0]), len(dico3.values()[0])
 #2.494.510 2.449.987 2.478.074
@@ -399,7 +399,7 @@ liste_chaos, chaos_genome, kmer_tot_genome, k_mer_list = parcours_genome_fenetre
 #print chi_square(liste_chaos, chaos2, k_mer_list) #on veut des p values petite (rejet de H0)
 liste_chaos2, chaos_genome2, kmer_tot_genome2, k_mer_list2 = parcours_genome_fenetre(dico2.values()[0], 50000,50000, k)
 liste_chaos3, chaos_genome3, kmer_tot_genome3, k_mer_list3 = parcours_genome_fenetre(dico3.values()[0], 50000,50000, k)
-liste_chaos4, chaos_genome4, kmer_tot_genome4, k_mer_list4 = parcours_genome_fenetre(dico4.values()[0], 50000,50000, k)
+#liste_chaos4, chaos_genome4, kmer_tot_genome4, k_mer_list4 = parcours_genome_fenetre(dico4.values()[0], 50000,50000, k)
 
 #print liste_chaos
 dist2a2 = matrice_distance2a2(liste_chaos)
@@ -506,6 +506,29 @@ def jsdiv(P, Q):
     M = 0.5 * (P + Q)
 
     return 0.5 * (_kldiv(P, M) +_kldiv(Q, M))
+
+
+
+def matrice_distance2a2_jsdiv (liste_chaos) :
+	"""
+	Matrice des distances 2 a 2 jensen : fenetres vs fenetres
+	
+	-------
+	input :
+	liste_chaos : Liste des arrays chaos (freq k-mer) pour chaque fenetre de genome
+
+	-------
+	output :
+	dist2a2 : matrice des distances numpy
+	"""
+	dist2a2 = np.zeros((len(liste_chaos), len(liste_chaos)))
+	for i, chaos1 in enumerate(liste_chaos) :
+		chaos1 = np.ndarray.flatten(chaos1)
+		for j, chaos2 in enumerate(liste_chaos) :
+			chaos2 = np.ndarray.flatten(chaos2)
+			dist2a2[i,j] = jsdiv (np.array(chaos1), np.array(chaos2))
+	return dist2a2
+
 
 
 """
