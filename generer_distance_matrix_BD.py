@@ -11,13 +11,13 @@ import sys
 import os
 
 if len(sys.argv) != 2 :
-	print "Missing genome directory argument (1)"
+	print 'Missing genome directory argument (without "/") (1)'
 	sys.exit(1)
 
 
 chaos_directory = sys.argv[1]
-liste_genome_directories = os.listdir(chaos_directory) #liste des dossiers d'especes dans ce directory
-fenetres = False
+liste_genome_directories = sorted(os.listdir(chaos_directory)) #liste des dossiers d'especes dans ce directory par ordre alphabetique
+fenetres = True
 
 #Dossier chaos de la forme Chaos/nom_espece/chaos_fenetres et chaos_global
 
