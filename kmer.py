@@ -410,6 +410,10 @@ def signature_principale(index, liste_chaos,seuil):
     index : fonction tri_signature
     liste_chaos : liste des chaos des k mers
     seuil :seuil : float, pourcentage (0.75 pour 75%) de l'etendue des distances (max et min) au dessus de laquelle on considere que la fenetre est eloignee
+
+	outputs :
+	temp : moyenne des chaos
+	liste_sign : tous les chaos
     """
     liste_sign = []
     for i in range(len(dist2a2)):
@@ -419,6 +423,19 @@ def signature_principale(index, liste_chaos,seuil):
     return temp,liste_sign
 
 def signature_cluster(clusters,liste_chaos):
+    """
+	donne les signatures des cluster qui se demarque dans le genome
+	
+	inputs 
+	-----
+	liste_chaos : liste des chaos des k mers
+	clusters : set des clusters, de la fonction clustering_transferts_horizontaux
+	
+	outputs:
+	--------
+	liste : moyenne des chaos
+	liste_cl : tous les chaos
+    """
     liste = []
     liste_cl  = []
     for i in clusters :
@@ -476,11 +493,11 @@ if __name__ == "__main__":
 	#print chi_square(liste_chaos, chaos_genome, k_mer_list) #on veut des p values grandes (non rejet de H0
 	#print chi_square(liste_chaos, chaos2, k_mer_list) #on veut des p values petite (rejet de H0)
 	liste_chaos2, chaos_genome2, kmer_tot_genome2, k_mer_list2 = parcours_genome_fenetre(dico2.values()[0], 5000,5000, k)
-	liste_chaos3, chaos_genome3, kmer_tot_genome3, k_mer_list3 = parcours_genome_fenetre(dico3.values()[0], 50000,50000, k)
-	liste_chaos4, chaos_genome4, kmer_tot_genome4, k_mer_list4 = parcours_genome_fenetre(dico4.values()[0], 50000,50000, k)
+	liste_chaos3, chaos_genome3, kmer_tot_genome3, k_mer_list3 = parcours_genome_fenetre(dico3.values()[0], 5000,5000, k)
+	liste_chaos4, chaos_genome4, kmer_tot_genome4, k_mer_list4 = parcours_genome_fenetre(dico4.values()[0], 5000,5000, k)
 
 	#print liste_chaos
-	dist2a2 = matrice_distance2a2_jsdiv(liste_chaos)
+	dist2a2 = matrice_distance2a2_jsdiv(liste_chaos2)
 	#print dist2a2, dist2a2.shape
 
 	plt.figure()
@@ -492,7 +509,7 @@ if __name__ == "__main__":
 	#print distancesAref
 	#print gen	
 
-	print trouver_transferts_moyenne(dist2a2, 0.40)
+	#print trouver_transferts_moyenne(dist2a2, 0.40)
 
 	index,m = tri_signature(dist2a2, 0.40)
 	#print index
@@ -517,8 +534,8 @@ if __name__ == "__main__":
 	distancesAref = distance_a_ref (liste_chaos, chaos_genome)
 	gen = jsdiv(np.ndarray.flatten(chaos_genome), np.ndarray.flatten(chaos2))
 
-	pp,liste_sign = signature_principale(index,liste_chaos,0.45)
-	cl,liste_cl = signature_cluster(b,liste_chaos)
+	pp,liste_sign = signature_principale(index,liste_chaos2,0.40)
+	cl,liste_cl = signature_cluster(b,liste_chaos2)
 	gen2 = jsdiv(np.ndarray.flatten(chaos_genome),np.ndarray.flatten(pp))
 	gen3 = jsdiv(np.ndarray.flatten(chaos_genome), np.ndarray.flatten(cl[0]))
 	#gen4 = euclidean_2chaos(chaos_genome, cl[1])
@@ -570,3 +587,47 @@ for i in range(len(liste_chaos4)):
 for linkage in ('ward', 'average', 'complete'):
 	clustering = AgglomerativeClustering(linkage=linkage, n_clusters=2)
 	clustering.fit(liste_hierar)
+	
+	
+	
+	
+	
+	
+from scipy.cluster.hierarchy import dendrogram, linkage
+z = linkage(liste_hierar)
+dendrogram(z)
+
+def dendrogramme_1_espece(cl,pp):
+	"""
+	fait un dendrogramme pour 1 espece avec les positions differentes et la signature pricipale
+	
+	cl = les differents clusters
+	pp = signature principale
+	"""
+
+	liste_dendo = []
+	liste_dendo.append(pp)
+	for i in range(len(cl)):
+		temp = np.ndarray.flatten(cl[i])
+		liste_dendo.append(temp)
+	pp = np.ndarray.flatten(pp)
+	return liste_dendo
+	
+def dendrogramme_tous(liste_chaos, liste_dist):
+	"""
+	fais un dendrogramme pour les differentes especes
+	
+	liste_chaos : liste des chaos
+	liste_dist : liste des distances
+	"""
+	dendo = []
+	for i in range(len(liste_chaos)) :
+		index,m = tri_signature(liste_dist[i], 0.40)
+		b = clustering_transferts_horizontaux(index,liste_dist[i],0.40,m)
+		pp,liste_sign = signature_principale(index,liste_chaos[i],0.40)
+		cl,liste_cl = signature_cluster(b,liste_chaos[i])
+		dendo += dendrogramme_1_espece(cl,pp)
+	z = linkage(dendo)
+	dendrogram(z)
+
+#TODO : faire une liste avec les noms des especes, cl , pp
