@@ -4,6 +4,8 @@
 
 from cgr import chaos_game_representation
 from copy import deepcopy
+import sys
+import os
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import math
@@ -337,8 +339,6 @@ def clustering_transferts_horizontaux(liste_index, dist2a2,seuil,mini):
 	maxi = np.max(dist2a2)
 	liste_index = np.array(liste_index)
 	chiffre_seuil = (maxi-mini)*seuil+mini
-	print type(liste_index)
-	print liste_index
 	liste = dist2a2[liste_index].T[liste_index].T
 	clusters = []
 	for i, fen in enumerate(liste): #Parcourt les distances de la fenetre vs toutes les autres 
@@ -410,13 +410,13 @@ def matrice_distance2a2_jsdiv (liste_chaos) :
 	return dist2a2
 
 
-def signature_principale(index, liste_chaos,seuil):
+def signature_principale(index, liste_chaos, dist2a2, seuil):
     """
     retourne la signature d'un genome sans les "transferts" suppose
 
     inputs :
     index : fonction tri_signature
-    liste_chaos : liste des chaos des k mers
+    liste_chaos : liste des chaos des fenetres
     seuil :seuil : float, pourcentage (0.75 pour 75%) de l'etendue des distances (max et min) au dessus de laquelle on considere que la fenetre est eloignee
 
 	outputs :
@@ -475,13 +475,11 @@ def dendrogramme_1_espece(cl, pp):
 	"""
 
 	liste_dendo = []
-#	liste_dendo.append(pp)
 	liste_dendo.append(np.ndarray.flatten(pp))
 	for i in range(len(cl)):
 		temp = np.ndarray.flatten(cl[i])
 		liste_dendo.append(temp)
-#	pp = np.ndarray.flatten(pp)
-	return liste_dendo
+	return liste_dendo, len(liste_dendo)
 	
 	
 def dendrogramme_tous(liste_chaos_especes, liste_dist_especes, seuil = 0.4):
@@ -492,14 +490,30 @@ def dendrogramme_tous(liste_chaos_especes, liste_dist_especes, seuil = 0.4):
 	liste_dist_especes : liste des matrices de distance 2 a 2 des fenetres d'un genome
 	"""
 	dendo = []
+	nom = {}
+	i = 0
+	r = 0
 	for esp in xrange(len(liste_chaos_especes)) : #parcourt les especes
 		index, m = tri_signature(liste_dist_especes[esp], seuil) #Recupere indices des fenetres potentiellement TH
-		b = clustering_transferts_horizontaux(index,liste_dist_especes[esp], seuil, m) #Evalue les clusters differents de TH (liste de sets d'indices de fenetres)
-		pp, liste_sign = signature_principale(index,liste_chaos_especes[esp], seuil) #Recupere le chaos moyen et liste de chaos de la signature majoritaire
+		b = clustering_transferts_horizontaux(index,liste_dist_especes[esp], seuil, m) #Evalue les clusters differents de TH (liste de sets d'indices de fenetres)	
+		pp, liste_s = signature_principale(index,liste_chaos_especes[esp],liste_dist_especes[esp], seuil) #Recupere le chaos moyen et liste de chaos de la signature majoritaire
 		cl, liste_cl = signature_cluster(b, liste_chaos_especes[esp]) #Recupere les chaos moyens et listes de chaos des signature minoritaires (clusters)
-		dendo += dendrogramme_1_espece(cl, pp) #Fait une liste de chaos vectorises pour faire le dendogramme
+		t = dendrogramme_1_espece(cl, pp)[0]
+		dendo += t #Fait une liste de chaos vectorises pour faire le dendogramme
+		temp = dendrogramme_1_espece(cl, pp)[1]
+		nom[i] = "pp_" + str(r)
+		for j in range(1,temp):
+			nom[i+j] = "cl_" + str(r)
+		i += j+1
+		r+=1
 	z = linkage(dendo)
-	dendrogram(z)
+	dflt_col = "##ff0000"   # Unclustered gray
+	link_cols = {}
+	for i, i12 in enumerate(z[:,:2].astype(int)):
+		c1, c2 = (link_cols[x] if x > len(z) else D_leaf_colors["%d"%x]for x in i12)
+		link_cols[i+1+len(z)] = c1 if c1 == c2 else dflt_col
+	dendrogram(z, link_color_func=lambda x: link_cols[x])
+	print nom
 	
 def recuperer_matrices_dist(liste_fichiers, dossier='.'):
 	"""
@@ -520,7 +534,27 @@ def recuperer_matrices_dist(liste_fichiers, dossier='.'):
 		matrices.append(matrix)
 	return matrices
 		
-		
+
+
+#Recuperer matrices	
+def recuperer_matrices(chaos_directory):
+	"""
+	chaos_directory = nom du dossier contenant les autres dossier chaos
+	
+	"""
+	liste_genome_directories = sorted(os.listdir(chaos_directory)) #liste des dossiers d'especes dans ce directory par ordre alphabetique
+	liste_chaos = []
+	for j in liste_genome_directories:
+		chaos = []
+		c = sorted(os.listdir(chaos_directory + "/" + j))
+		for i, fichier in enumerate(c) :
+			if c[i] != "chaos_global.npy":
+				matrix = np.load(chaos_directory + "/" + j +"/"+ fichier)
+				chaos.append(matrix)
+		liste_chaos.append(chaos)
+	return liste_chaos	
+
+	
 if __name__ == "__main__":
 	"""
 	#chaos = freq
@@ -668,6 +702,32 @@ if __name__ == "__main__":
 	y_predit = fcluster(z, 4, criterion='maxclust') #4 le nombre de clusters, ici 4 especes
 	
 
+D_leaf_colors = {"0": "#808080", # Unclustered gray
+			"1": "#808080", # Unclustered gray
+			"2": "#808080", # Unclustered gray
+			"3": "#808080", # Unclustered gray
 
 
+                 "4": "#B061FF", # Cluster 1 indigo
+                 "5": "#B061FF",
+                 "6": "#B061FF",
+                 "7": "#B061FF",
+																	
+                 "8": "#61ffff", # Cluster 2 cyan
+                 "9": "#61ffff",
+                 "10": "#61ffff",
+                 "11": "#61ffff", # Cluster 2 cyan
+                 "12": "#61ffff",
+                 "13": "#61ffff",																	
+                 "14": "#61ffff", # Cluster 2 cyan
+                 "15": "#61ffff",
+                 "16": "#61ffff",																	
+                 "17": "#61ffff", # Cluster 2 cyan
+                 "18": "#61ffff",
+                 "19": "#61ffff",		
+                 "20": "#61ffff"																	
+														
+                 }
+
+	
 #TODO : faire une liste avec les noms des especes, cl , pp
