@@ -1,0 +1,143 @@
+Archaea
++-Thaumarchaeota
+| ++Nitrosopumilales
+| | \-Nitrosopumilus maritimus SCM1
+| \+Cenarchaeales
+|   \-Cenarchaeum symbiosum A
+++Candidatus Korarchaeota
+| \-Candidatus Korarchaeum cryptofilum OPF8
+++Nanoarchaeota
+| \-Nanoarchaeum equitans Kin4-M
++-Crenarchaeota
+| \-Thermoprotei
+|   +-Sulfolobales
+|   | \-Sulfolobaceae
+|   |   ++Metallosphaera
+|   |   | \-Metallosphaera sedula DSM 5348
+|   |   \-Sulfolobus
+|   |     +-Sulfolobus acidocaldarius
+|   |     | \-Sulfolobus acidocaldarius DSM 639
+|   |     \-Sulfolobus solfataricus
+|   |       \-Sulfolobus solfataricus P2
+|   +-Desulfurococcales
+|   | ++Pyrodictiaceae
+|   | | \-Hyperthermus butylicus DSM 5456
+|   | \-Desulfurococcaceae
+|   |   ++Desulfurococcus
+|   |   | \-Desulfurococcus amylolyticus 1221n
+|   |   ++Ignicoccus
+|   |   | \-Ignicoccus hospitalis KIN4/I
+|   |   ++Staphylothermus
+|   |   | \-Staphylothermus marinus F1
+|   |   \+Aeropyrum
+|   |     \-Aeropyrum pernix K1
+|   \-Thermoproteales
+|     ++Thermofilaceae
+|     | \-Thermofilum pendens Hrk 5
+|     \-Thermoproteaceae
+|       ++Caldivirga
+|       | \-Caldivirga maquilingensis IC-167
+|       \-Pyrobaculum
+|         +-Pyrobaculum neutrophilum
+|         | \-Pyrobaculum neutrophilum V24Sta
+|         +-Pyrobaculum arsenaticum
+|         | \-Pyrobaculum arsenaticum DSM 13514
+|         \-Pyrobaculum aerophilum
+|           \-Pyrobaculum aerophilum str. IM2
+\-Euryarchaeota
+  +-Methanococci
+  | \-Methanococcales
+  |   ++Methanocaldococcaceae
+  |   | \-Methanocaldococcus fervens AG86
+  |   \-Methanococcaceae
+  |     \-Methanococcus
+  |       +-Methanococcus maripaludis
+  |       | \-Methanococcus maripaludis C6
+  |       +-Methanococcus aeolicus
+  |       | \-Methanococcus aeolicus Nankai-3
+  |       \-Methanococcus vannielii
+  |         \-Methanococcus vannielii SB
+  ++Methanobacteria
+  | \-Methanobacteriaceae
+  |   ++Methanobrevibacter
+  |   | \-Methanobrevibacter ruminantium M1
+  |   \+Methanosphaera
+  |     \-Methanosphaera stadtmanae DSM 3091
+  +-Thermoplasmata
+  | \-Thermoplasmatales
+  |   +-Thermoplasmataceae
+  |   | \-Thermoplasma
+  |   |   +-Thermoplasma volcanium
+  |   |   | \-Thermoplasma volcanium GSS1
+  |   |   \-Thermoplasma acidophilum
+  |   |     \-Thermoplasma acidophilum DSM 1728
+  |   \+Picrophilaceae
+  |     \-Picrophilus torridus DSM 9790
+  ++Archaeoglobi
+  | \-Archaeoglobus
+  |   +-Archaeoglobus profundus
+  |   | \-Archaeoglobus profundus DSM 5631
+  |   \-Archaeoglobus fulgidus
+  |     \-Archaeoglobus fulgidus DSM 4304
+  ++Methanopyri
+  | \-Methanopyrus kandleri AV19
+  +-Methanomicrobia
+  | +-Methanomicrobiales
+  | | +-Methanoregulaceae
+  | | | ++Methanosphaerula
+  | | | | \-Methanosphaerula palustris E1-9c
+  | | | \+Methanoregula
+  | | |   \-Methanoregula boonei 6A8
+  | | ++Methanocorpusculaceae
+  | | | \-Methanocorpusculum labreanum Z
+  | | ++Methanomicrobiaceae
+  | | | \-Methanoculleus marisnigri JR1
+  | | \+Methanospirillaceae
+  | |   \-Methanospirillum hungatei JF-1
+  | ++Methanocellales
+  | | \-Methanocella paludicola SANAE
+  | \-Methanosarcinales
+  |   ++Methanosaetaceae
+  |   | \-Methanothrix thermoacetophila PT
+  |   \-Methanosarcinaceae
+  |     ++Methanococcoides
+  |     | \-Methanococcoides burtonii DSM 6242
+  |     \-Methanosarcina
+  |       +-Methanosarcina barkeri
+  |       | \-Methanosarcina barkeri str. Fusaro
+  |       +-Methanosarcina mazei
+  |       | \-Methanosarcina mazei Go1
+  |       \-Methanosarcina acetivorans
+  |         \-Methanosarcina acetivorans C2A
+  ++Thermococci
+  | \-Thermococcaceae
+  |   ++Thermococcus
+  |   | \-Thermococcus gammatolerans EJ3
+  |   \-Pyrococcus
+  |     +-Pyrococcus abyssi
+  |     | \-Pyrococcus abyssi GE5
+  |     +-Pyrococcus furiosus
+  |     | \-Pyrococcus furiosus DSM 3638
+  |     \-Pyrococcus horikoshii
+  |       \-Pyrococcus horikoshii OT3
+  \-Halobacteria
+    ++Natrialbales
+    | \-Haloterrigena turkmenica DSM 5511
+    +-Haloferacales
+    | ++Halorubraceae
+    | | \-Halorubrum lacusprofundi ATCC 49239
+    | \+Haloferacaceae
+    |   \-Haloquadratum walsbyi DSM 16790
+    \-Halobacteriales
+      +-Haloarculaceae
+      | ++Halorhabdus
+      | | \-Halorhabdus utahensis DSM 12940
+      | ++Halomicrobium
+      | | \-Halomicrobium mukohataei DSM 12286
+      | ++Natronomonas
+      | | \-Natronomonas pharaonis DSM 2160
+      | \+Haloarcula
+      |   \-Haloarcula marismortui ATCC 43049
+      \+Halobacteriaceae
+        \-Halobacterium salinarum NRC-1
+-----------------------------------

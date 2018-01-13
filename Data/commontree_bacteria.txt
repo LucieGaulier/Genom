@@ -1,0 +1,190 @@
+Bacteria
++-Thermobaculum
+|   \-Thermobaculum terrenum ATCC BAA-798
++-Synergistetes
+|           \-Thermanaerovibrio acidaminovorans DSM 6589
++-Chlamydiae
+|           \-Chlamydia trachomatis 434/Bu
++-Candidatus Cloacimonetes
+|   \-Candidatus Cloacimonas acidaminovorans
++-Elusimicrobia
+| +-Endomicrobia
+| |       \-Candidatus Endomicrobium trichonymphae
+| \-Elusimicrobia
+|   \-Elusimicrobium minutum Pei191
++-Gemmatimonadetes
+|           \-Gemmatimonas aurantiaca T-27
++-Verrucomicrobia
+| +-Methylacidiphilae
+| | \-Methylacidiphilales
+| |         \-Methylacidiphilum infernorum V4
+| +-Opitutae
+| |         \-Opitutus terrae PB90-1
+| \-Verrucomicrobiae
+|           \-Akkermansia muciniphila ATCC BAA-835
++-Chlorobi
+|       \-Chlorobium chlorochromatii CaD3
++-Dictyoglomi
+|       \-Dictyoglomus thermophilum H-6-12
++-Bacteroidetes
+| +-Sphingobacteriia
+| |         \-Pedobacter heparinus DSM 2366
+| +-Cytophagia
+| |         \-Candidatus Amoebophilus asiaticus 5a2
+| +-Flavobacteriia
+| |         \-Flavobacterium psychrophilum JIP02/86
+| \-Bacteroidia
+|           \-Bacteroides fragilis YCH46
++-Nitrospirae
+|           \-Thermodesulfovibrio yellowstonii DSM 11347
++-Firmicutes
+| +-Bacilli
+| | \-Bacillales
+| |   +-Alicyclobacillaceae
+| |   | \-Alicyclobacillus
+| |   |     \-Alicyclobacillus acidocaldarius subsp. acidocaldarius DSM 446
+| |   \-Bacillaceae
+| |     \-Bacillus
+| |       +-Bacillus pseudofirmus
+| |       | \-Bacillus pseudofirmus OF4
+| |       \-Bacillus cereus
+| |         \-Bacillus cereus Q1
+| \-Clostridia
+|   +-Clostridiales
+|   |       \-Clostridium acetobutylicum ATCC 824
+|   \-Thermoanaerobacterales
+|     \-Thermoanaerobacteraceae
+|       +-Caldanaerobacter
+|       | \-Caldanaerobacter subterraneus
+|       |   \-Caldanaerobacter subterraneus subsp. tengcongensis MB4
+|       \-Carboxydothermus
+|         \-Carboxydothermus hydrogenoformans
+|           \-Carboxydothermus hydrogenoformans Z-2901
++-Thermotogae
+|           \-Thermotoga maritima MSB8
++-Tenericutes
+| \-Mollicutes
+|   +-Acholeplasmatales
+|   |       \-Acholeplasma laidlawii PG-8A
+|   \-Mycoplasmatales
+|           \-Mycoplasma genitalium G37
++-Deinococcus-Thermus
+| \-Deinococci
+|   +-Thermales
+|   | \-Thermaceae
+|   |   \-Thermus
+|   |       \-Thermus thermophilus HB8
+|   \-Deinococcales
+|           \-Deinococcus radiodurans R1
++-Chloroflexi
+| +-Chloroflexia
+| |         \-Chloroflexus aurantiacus J-10-fl
+| +-Thermomicrobia
+| |         \-Thermomicrobium roseum DSM 5159
+| \-Dehalococcoidia
+|           \-Dehalococcoides mccartyi 195
++-Acidobacteria
+| +-Acidobacteriia
+| | \-Acidobacteriales
+| |         \-Acidobacterium capsulatum ATCC 51196
+| \-Solibacteres
+|           \-Candidatus Solibacter usitatus Ellin6076
++-Aquificae
+|       \-Aquifex aeolicus VF5
++-Planctomycetes
+|     +-Planctomycetaceae
+|     | +-Pirellula
+|     | | \-Pirellula staleyi
+|     | |   \-Pirellula staleyi DSM 6068
+|     | \-Rhodopirellula
+|     |   \-Rhodopirellula baltica
+|     |     \-Rhodopirellula baltica SH 1
+|     \-Gemmataceae
+|           \-Gemmata obscuriglobus UQM 2246
++-Actinobacteria
+|           \-Corynebacterium glutamicum ATCC 13032
++-Fusobacteria
+|           \-Fusobacterium nucleatum subsp. nucleatum ATCC 25586
++-Spirochaetes
+| \-Spirochaetia
+|   +-Spirochaetales
+|   |       \-Borrelia burgdorferi B31
+|   \-Leptospiraceae
+|     \-Leptospira
+|       \-Leptospira interrogans
+|         \-Leptospira interrogans serovar Lai str. 56601
++-Proteobacteria
+| +-Epsilonproteobacteria
+| |         \-Campylobacter jejuni subsp. jejuni 81-176
+| +-Oligoflexia
+| |         \-Bdellovibrio bacteriovorus HD100
+| +-Gammaproteobacteria
+| | +-Alteromonadales
+| | |       \-Shewanella putrefaciens CN-32
+| | +-Pseudomonadales
+| | |       \-Psychrobacter arcticus 273-4
+| | \-Legionellales
+| |         \-Coxiella burnetii RSA 493
+| +-Betaproteobacteria
+| | \-Burkholderiales
+| |   +-Alcaligenaceae
+| |   | \-Bordetella
+| |   |   \-Bordetella pertussis
+| |   |     \-Bordetella pertussis Tohama I
+| |   \-Burkholderiaceae
+| |     \-Cupriavidus
+| |       \-Cupriavidus taiwanensis
+| \-Alphaproteobacteria
+|   +-Rickettsiales
+|   | \-Rickettsiaceae
+|   |   \-Rickettsia
+|   |     \-Rickettsia rickettsii
+|   |       \-Rickettsia rickettsii str. Iowa
+|   +-Rhizobiales
+|   | \-Rhizobiaceae
+|   |   \-Rhizobium
+|   |     \-Rhizobium leguminosarum
+|   |       \-Rhizobium leguminosarum bv. trifolii WSM1325
+|   +-Rhodospirillales
+|   | \-Rhodospirillaceae
+|   |   \-Rhodospirillum
+|   |     \-Rhodospirillum rubrum
+|   |       \-Rhodospirillum rubrum ATCC 11170
+|   \-Magnetococcales
+|     \-Magnetococcaceae
+|       \-Magnetococcus
+|         \-Magnetococcus marinus
+|           \-Magnetococcus marinus MC-1
++-Fibrobacteres
+| \-Fibrobacteria
+|   \-Fibrobacterales
+|     \-Fibrobacteraceae
+|       \-Fibrobacter
+|         \-Fibrobacter succinogenes
+|           \-Fibrobacter succinogenes subsp. succinogenes S85
+\-Cyanobacteria
+  +-Gloeobacteria
+  | \-Gloeobacterales
+  |   \-Gloeobacteraceae
+  |     \-Gloeobacter
+  |       \-Gloeobacter violaceus
+  |         \-Gloeobacter violaceus PCC 7421
+  +-Synechococcales
+  | +-Synechococcaceae
+  | | \-Synechococcus
+  | |   \-Synechococcus elongatus
+  | |     \-Synechococcus elongatus PCC 6301
+  | \-Prochloraceae
+  |   \-Prochlorococcus
+  |     \-Prochlorococcus marinus
+  |       \-Prochlorococcus marinus str. AS9601
+  +-Nostocales
+  | \-Nostocaceae
+  |   \-Nostoc
+  |     \-Nostoc punctiforme
+  |       \-Nostoc punctiforme PCC 73102
+  \-Oscillatoriales
+    \-Cyanothecaceae
+      \-Cyanothece
+        \-Cyanothece sp. ATCC 51142
+-----------------------------------
