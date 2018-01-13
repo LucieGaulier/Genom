@@ -264,23 +264,26 @@ def distance_a_ref (liste_chaos, chaos_genome):
 
 def tri_signature(dist2a2, seuil):
 	"""
-	Trouve les fenetres contenant au moins la moitie de ces distances superieur a un seuil
+	Trouve les fenetres contenant au moins la moitie de ses distances superieures
+	a un seuil.
 
 	-----
 	input :
-	seuil -float, pourcentage (0.75 pour 75%) de l'etendue des distances (max et min) au 	dessus de laquelle on considere que la fenetre est eloignee
+	seuil - float, pourcentage (0.75 pour 75%) de l'etendue des distances (max et min) au
+	 	dessus de laquelle on considere que la fenetre est eloignee
 	dist2a2 - matrice des distances 2 a 2 numpy entre les fenetres du genome
 
 	-----
 	ouput :
-	liste des index des fenetres
+	liste - liste des index des fenetres differentes de plus de la moitié des fenetres du genome
+	mini - distance minimale entre 2 fenetres dans la matrice
 	"""
 	maxi = np.max(dist2a2)
-	dist2a2[dist2a2 ==0] = np.inf
+	dist2a2[dist2a2 == 0] = np.inf
 	mini = np.min(dist2a2)
 	dist2a2[dist2a2 == np.inf] = 0
 	liste = []
-	chiffre_seuil = (maxi-mini)*seuil+mini
+	chiffre_seuil = (maxi-mini) * seuil + mini
 	for i in range(0,len(dist2a2)):
 		n = 0.
 		for j in range(0,len(dist2a2[i])):
@@ -290,7 +293,8 @@ def tri_signature(dist2a2, seuil):
 		temp = n/len(dist2a2[i])
 		if temp >= 0.5 :
 			liste.append(i)
-	return liste,mini
+	return liste, mini
+
 
 def trouver_transferts_moyenne(dist2a2, seuil):
 	"""
@@ -312,6 +316,7 @@ def trouver_transferts_moyenne(dist2a2, seuil):
 	seuil = (np.max(dist2a2)-mini) * seuil + mini
 	moyennes = np.mean(dist2a2, axis = 0)
 	return np.where(moyennes >= seuil)
+
 
 def clustering_transferts_horizontaux(liste_index, dist2a2,seuil,mini):
 	"""
@@ -345,6 +350,7 @@ def clustering_transferts_horizontaux(liste_index, dist2a2,seuil,mini):
 		if not in_cluster:
 			clusters.append(set(proches_i))
 	return clusters
+	
 			
 def pca(X,Y,n):
     pca = PCA(n_components=n)
@@ -414,72 +420,86 @@ def signature_principale(index, liste_chaos,seuil):
 
 	outputs :
 	temp : moyenne des chaos
-	liste_sign : tous les chaos
+	liste_sign : tous les chaos appartenant a ce groupe
     """
     liste_sign = []
     for i in range(len(dist2a2)):
 	if i not in index :
 	    liste_sign.append(liste_chaos[i])       
     temp = sum(liste_sign)/len(liste_sign)
-    return temp,liste_sign
+    return temp, liste_sign
 
-def signature_cluster(clusters,liste_chaos):
-    """
-	donne les signatures des cluster qui se demarque dans le genome
+
+def signature_cluster(clusters, liste_chaos):
+	"""
+	donne les signatures des clusters qui se demarquent dans le genome, et les
+	signatures moyennes par cluster
 	
 	inputs 
 	-----
-	liste_chaos : liste des chaos des k mers
+	liste_chaos : liste des chaos des fenetres
 	clusters : set des clusters, de la fonction clustering_transferts_horizontaux
 	
 	outputs:
 	--------
-	liste : moyenne des chaos
-	liste_cl : tous les chaos
-    """
-    liste = []
-    liste_cl  = []
-    for i in clusters :
-	liste_temp = []
-	for j in i :
-	    liste_temp.append(liste_chaos[j])
-	temp = sum(liste_temp)/len(liste_temp)
-	liste.append(temp)
-	liste_cl.append(liste_temp)
-    return liste,liste_cl
-				
-def dendrogramme_1_espece(cl,pp):
+	liste : liste des chaos moyens de chaque cluster
+	liste_cl : liste de listes des chaos de chaque cluster
 	"""
-	fait un dendrogramme pour 1 espece avec les positions differentes et la signature pricipale
+	liste = []
+	liste_cl  = []
+	for i in clusters :
+		liste_temp = []
+		for j in i :
+		    liste_temp.append(liste_chaos[j])
+		temp = sum(liste_temp)/float(len(liste_temp))
+		liste.append(temp) #Ajoute le chaos moyen du cluster
+		liste_cl.append(liste_temp) #Ajoute liste des chaos du cluster
+	return liste, liste_cl
+
+
+def dendrogramme_1_espece(cl, pp):
+	"""
+	Fait une liste a partir des chaos moyens des differents clusters minoritaires (cl)
+	et le majoritaire (signature principale pp) d'une espece donnee en vectorisant ces 
+	matrices. Permettra de faire le dendogramme.
+
+	inputs :	
+	----------------
+	cl = liste des chaos moyens par cluster
+	pp = liste du chaos moyen principal (majoritaire dans l'espece)
 	
-	cl = les differents clusters
-	pp = signature principale
+	output :
+	----------------
+	liste_dendo =  liste de chaos moyens des clusters du genome vectorisés
 	"""
 
 	liste_dendo = []
-	liste_dendo.append(pp)
+#	liste_dendo.append(pp)
+	liste_dendo.append(np.ndarray.flatten(pp))
 	for i in range(len(cl)):
 		temp = np.ndarray.flatten(cl[i])
 		liste_dendo.append(temp)
-	pp = np.ndarray.flatten(pp)
+#	pp = np.ndarray.flatten(pp)
 	return liste_dendo
 	
-def dendrogramme_tous(liste_chaos, liste_dist):
+	
+def dendrogramme_tous(liste_chaos_especes, liste_dist_especes, seuil = 0.4):
 	"""
 	fais un dendrogramme pour les differentes especes
 	
-	liste_chaos : liste des chaos
-	liste_dist : liste des distances
+	liste_chaos_especes : liste de listes des chaos des fenetres d'une espèce
+	liste_dist_especes : liste des matrices de distance 2 a 2 des fenetres d'un genome
 	"""
 	dendo = []
-	for i in range(len(liste_chaos)) :
-		index,m = tri_signature(liste_dist[i], 0.40)
-		b = clustering_transferts_horizontaux(index,liste_dist[i],0.40,m)
-		pp,liste_sign = signature_principale(index,liste_chaos[i],0.40)
-		cl,liste_cl = signature_cluster(b,liste_chaos[i])
-		dendo += dendrogramme_1_espece(cl,pp)
+	for esp in xrange(len(liste_chaos_especes)) : #parcourt les especes
+		index, m = tri_signature(liste_dist_especes[esp], seuil) #Recupere indices des fenetres potentiellement TH
+		b = clustering_transferts_horizontaux(index,liste_dist_especes[esp], seuil, m) #Evalue les clusters differents de TH (liste de sets d'indices de fenetres)
+		pp, liste_sign = signature_principale(index,liste_chaos_especes[esp], seuil) #Recupere le chaos moyen et liste de chaos de la signature majoritaire
+		cl, liste_cl = signature_cluster(b, liste_chaos_especes[esp]) #Recupere les chaos moyens et listes de chaos des signature minoritaires (clusters)
+		dendo += dendrogramme_1_espece(cl, pp) #Fait une liste de chaos vectorisés pour faire le dendogramme
 	z = linkage(dendo)
 	dendrogram(z)
+	
 
 if __name__ == "__main__":
 	"""
