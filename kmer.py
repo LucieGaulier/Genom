@@ -12,6 +12,7 @@ import pylab
 from scipy.stats import chisquare
 from sklearn.decomposition import PCA
 from sklearn.cluster import AgglomerativeClustering
+from scipy.cluster.hierarchy import dendrogram, linkage
 
 def genome_str(fichier):
 	"""
@@ -446,6 +447,39 @@ def signature_cluster(clusters,liste_chaos):
 	liste.append(temp)
 	liste_cl.append(liste_temp)
     return liste,liste_cl
+				
+def dendrogramme_1_espece(cl,pp):
+	"""
+	fait un dendrogramme pour 1 espece avec les positions differentes et la signature pricipale
+	
+	cl = les differents clusters
+	pp = signature principale
+	"""
+
+	liste_dendo = []
+	liste_dendo.append(pp)
+	for i in range(len(cl)):
+		temp = np.ndarray.flatten(cl[i])
+		liste_dendo.append(temp)
+	pp = np.ndarray.flatten(pp)
+	return liste_dendo
+	
+def dendrogramme_tous(liste_chaos, liste_dist):
+	"""
+	fais un dendrogramme pour les differentes especes
+	
+	liste_chaos : liste des chaos
+	liste_dist : liste des distances
+	"""
+	dendo = []
+	for i in range(len(liste_chaos)) :
+		index,m = tri_signature(liste_dist[i], 0.40)
+		b = clustering_transferts_horizontaux(index,liste_dist[i],0.40,m)
+		pp,liste_sign = signature_principale(index,liste_chaos[i],0.40)
+		cl,liste_cl = signature_cluster(b,liste_chaos[i])
+		dendo += dendrogramme_1_espece(cl,pp)
+	z = linkage(dendo)
+	dendrogram(z)
 
 if __name__ == "__main__":
 	"""
@@ -559,75 +593,39 @@ if __name__ == "__main__":
 	"""
 
 
-for i in range(len(liste_chaos)):
-	liste_chaos[i] = np.ndarray.flatten(liste_chaos[i])
-for i in range(len(liste_chaos2)):
-	liste_chaos2[i] = np.ndarray.flatten(liste_chaos2[i])	
-for i in range(len(liste_chaos3)):
-	liste_chaos3[i] = np.ndarray.flatten(liste_chaos3[i])	
-for i in range(len(liste_chaos4)):
-	liste_chaos4[i] = np.ndarray.flatten(liste_chaos4[i])
+	for i in range(len(liste_chaos)):
+		liste_chaos[i] = np.ndarray.flatten(liste_chaos[i])
+	for i in range(len(liste_chaos2)):
+		liste_chaos2[i] = np.ndarray.flatten(liste_chaos2[i])	
+	for i in range(len(liste_chaos3)):
+		liste_chaos3[i] = np.ndarray.flatten(liste_chaos3[i])	
+	for i in range(len(liste_chaos4)):
+		liste_chaos4[i] = np.ndarray.flatten(liste_chaos4[i])
+	
+		
+	liste_hierar = liste_chaos + liste_chaos2 + liste_chaos3 + liste_chaos4
+	Y=[]
+	
+	for i in range(len(liste_chaos)):
+		Y.append(0)
+		
+	for i in range(len(liste_chaos2)):
+		Y.append(1)
+	
+	for i in range(len(liste_chaos3)):
+		Y.append(2)	
+	
+	for i in range(len(liste_chaos4)):
+		Y.append(3)	
+	 
+	for linkage in ('ward', 'average', 'complete'):
+		clustering = AgglomerativeClustering(linkage=linkage, n_clusters=2)
+		clustering.fit(liste_hierar)
 
 	
-liste_hierar = liste_chaos + liste_chaos2 + liste_chaos3 + liste_chaos4
-Y=[]
-
-for i in range(len(liste_chaos)):
-	Y.append(0)
-	
-for i in range(len(liste_chaos2)):
-	Y.append(1)
-
-for i in range(len(liste_chaos3)):
-	Y.append(2)	
-
-for i in range(len(liste_chaos4)):
-	Y.append(3)	
- 
-for linkage in ('ward', 'average', 'complete'):
-	clustering = AgglomerativeClustering(linkage=linkage, n_clusters=2)
-	clustering.fit(liste_hierar)
-	
-	
-	
-	
-	
-	
-from scipy.cluster.hierarchy import dendrogram, linkage
-z = linkage(liste_hierar)
-dendrogram(z)
-
-def dendrogramme_1_espece(cl,pp):
-	"""
-	fait un dendrogramme pour 1 espece avec les positions differentes et la signature pricipale
-	
-	cl = les differents clusters
-	pp = signature principale
-	"""
-
-	liste_dendo = []
-	liste_dendo.append(pp)
-	for i in range(len(cl)):
-		temp = np.ndarray.flatten(cl[i])
-		liste_dendo.append(temp)
-	pp = np.ndarray.flatten(pp)
-	return liste_dendo
-	
-def dendrogramme_tous(liste_chaos, liste_dist):
-	"""
-	fais un dendrogramme pour les differentes especes
-	
-	liste_chaos : liste des chaos
-	liste_dist : liste des distances
-	"""
-	dendo = []
-	for i in range(len(liste_chaos)) :
-		index,m = tri_signature(liste_dist[i], 0.40)
-		b = clustering_transferts_horizontaux(index,liste_dist[i],0.40,m)
-		pp,liste_sign = signature_principale(index,liste_chaos[i],0.40)
-		cl,liste_cl = signature_cluster(b,liste_chaos[i])
-		dendo += dendrogramme_1_espece(cl,pp)
-	z = linkage(dendo)
+	z = linkage(liste_hierar)
 	dendrogram(z)
+
+
 
 #TODO : faire une liste avec les noms des especes, cl , pp
