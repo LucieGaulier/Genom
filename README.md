@@ -1,5 +1,10 @@
 # Genom
 
+*Requirements :*
+- scikit-learn at least v. 0.19.1
+- NumPy at least v. 1.13.0
+
+
 **Je mets les tar avec tous les genomes (recommendés + cool + chelou) dans un drive, avec les matrices de fenetres de 5000 (regarder mail)**
 
 Site de Philippe Lopez avec les docs : [dropbox](https://www.dropbox.com/sh/aqho0hj0j4b56yx/AABVNUZr___mmF2fvKR95FNma?dl=0)
