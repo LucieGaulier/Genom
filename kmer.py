@@ -492,7 +492,7 @@ def dendrogramme_tous(liste_chaos_especes, liste_dist_especes, seuil = 0.4):
 	dendo = []
 	nom = {}
 	i = 0
-	cols = ["#FFFFFF","#C0C0C0","#808080","#000000","#FF0000","#800000","FFFF00","#808000","#00FF00","#008000","#00FFFF","#008080","#0000FF","#000080","#FF00FF","#800080"]
+	cols = ["#000000","#FF0000","#FFFF00","#808000","#00FF00","#008000","#00FFFF","#008080","#0000FF","#000080","#FF00FF","#800080","#C0C0C0","#808080","#800000"]
 	r = 0
 	for esp in xrange(len(liste_chaos_especes)) : #parcourt les especes
 		index, m = tri_signature(liste_dist_especes[esp], seuil) #Recupere indices des fenetres potentiellement TH
@@ -502,13 +502,14 @@ def dendrogramme_tous(liste_chaos_especes, liste_dist_especes, seuil = 0.4):
 		t = dendrogramme_1_espece(cl, pp)[0]
 		dendo += t #Fait une liste de chaos vectorises pour faire le dendogramme
 		temp = dendrogramme_1_espece(cl, pp)[1]
-		nom[i] = cols[r]
+		nom[str(i)] = cols[r]
 		for j in range(1,temp):
-			nom[i+j] = cols[r]
+			nom[str(i+j)] = cols[r]
 		i += j+1
 		if r + 1 > len(cols):
 			print "Pas assez de couleurs! :'("
 		r+=1
+	print nom
 	z = linkage(dendo)
 	link_cols = {}
 	for i, i12 in enumerate(z[:,:2].astype(int)):
@@ -750,5 +751,8 @@ def color_dic(clusters_list_index):
 			compt += 1
 	return d
 
-	
-#TODO : faire une liste avec les noms des especes, cl , pp
+liste_c = recuperer_matrices("chaos_directory/")
+a = ["matrice_dist_eucli_FENETRES_Chaos_bacteria_4_5000_Acholeplasma_laidlawii_PG-8A.npy","matrice_dist_eucli_FENETRES_Chaos_bacteria_4_5000_Akkermansia_muciniphila_ATCC_BAA-835.npy","matrice_dist_eucli_FENETRES_Chaos_bacteria_4_5000_Bdellovibrio_bacteriovorus_complete_genome.npy","matrice_dist_eucli_FENETRES_Chaos_bacteria_4_5000_Candidatus_Amoebophilus_asiaticus_5a2.npy"]
+liste_d = recuperer_matrices_dist(a)
+
+dendrogramme_tous(liste_c,liste_d)
