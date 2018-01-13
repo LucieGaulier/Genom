@@ -275,7 +275,7 @@ def tri_signature(dist2a2, seuil):
 
 	-----
 	ouput :
-	liste - liste des index des fenetres differentes de plus de la moitié des fenetres du genome
+	liste - liste des index des fenetres differentes de plus de la moitie des fenetres du genome
 	mini - distance minimale entre 2 fenetres dans la matrice
 	"""
 	maxi = np.max(dist2a2)
@@ -470,7 +470,7 @@ def dendrogramme_1_espece(cl, pp):
 	
 	output :
 	----------------
-	liste_dendo =  liste de chaos moyens des clusters du genome vectorisés
+	liste_dendo =  liste de chaos moyens des clusters du genome vectorises
 	"""
 
 	liste_dendo = []
@@ -487,7 +487,7 @@ def dendrogramme_tous(liste_chaos_especes, liste_dist_especes, seuil = 0.4):
 	"""
 	fais un dendrogramme pour les differentes especes
 	
-	liste_chaos_especes : liste de listes des chaos des fenetres d'une espèce
+	liste_chaos_especes : liste de listes des chaos des fenetres d'une espece
 	liste_dist_especes : liste des matrices de distance 2 a 2 des fenetres d'un genome
 	"""
 	dendo = []
@@ -496,7 +496,7 @@ def dendrogramme_tous(liste_chaos_especes, liste_dist_especes, seuil = 0.4):
 		b = clustering_transferts_horizontaux(index,liste_dist_especes[esp], seuil, m) #Evalue les clusters differents de TH (liste de sets d'indices de fenetres)
 		pp, liste_sign = signature_principale(index,liste_chaos_especes[esp], seuil) #Recupere le chaos moyen et liste de chaos de la signature majoritaire
 		cl, liste_cl = signature_cluster(b, liste_chaos_especes[esp]) #Recupere les chaos moyens et listes de chaos des signature minoritaires (clusters)
-		dendo += dendrogramme_1_espece(cl, pp) #Fait une liste de chaos vectorisés pour faire le dendogramme
+		dendo += dendrogramme_1_espece(cl, pp) #Fait une liste de chaos vectorises pour faire le dendogramme
 	z = linkage(dendo)
 	dendrogram(z)
 	
