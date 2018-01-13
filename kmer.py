@@ -507,11 +507,10 @@ def dendrogramme_tous(liste_chaos_especes, liste_dist_especes, seuil = 0.4):
 		i += j+1
 		r+=1
 	z = linkage(dendo)
-	dflt_col = "##ff0000"   # Unclustered gray
 	link_cols = {}
 	for i, i12 in enumerate(z[:,:2].astype(int)):
 		c1, c2 = (link_cols[x] if x > len(z) else D_leaf_colors["%d"%x]for x in i12)
-		link_cols[i+1+len(z)] = c1 if c1 == c2 else dflt_col
+		link_cols[i+1+len(z)] = c1 
 	dendrogram(z, link_color_func=lambda x: link_cols[x])
 	print nom
 	
@@ -716,16 +715,16 @@ D_leaf_colors = {"0": "#808080", # Unclustered gray
                  "8": "#61ffff", # Cluster 2 cyan
                  "9": "#61ffff",
                  "10": "#61ffff",
-                 "11": "#61ffff", # Cluster 2 cyan
+                 "11": "#61ffff", 
                  "12": "#61ffff",
                  "13": "#61ffff",																	
-                 "14": "#61ffff", # Cluster 2 cyan
+                 "14": "#61ffff", 
                  "15": "#61ffff",
                  "16": "#61ffff",																	
-                 "17": "#61ffff", # Cluster 2 cyan
-                 "18": "#61ffff",
-                 "19": "#61ffff",		
-                 "20": "#61ffff"																	
+                 "17": "#1FB817", # Cluster 3 green
+                 "18": "#1FB817",
+                 "19": "#1FB817",		
+                 "20": "#1FB817"															
 														
                  }
 
