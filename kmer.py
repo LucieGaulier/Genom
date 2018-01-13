@@ -243,6 +243,7 @@ def chi_square(chaos_liste, chaos_genome, k_mer_list):
 		pval_liste.append(chisquare(chaos * k_mer_list[i], (k_mer_list[i] * chaos_genome).astype(int), axis = None))
 	return pval_liste
 
+
 def distance_a_ref (liste_chaos, chaos_genome):
 	"""
 	Distances 2 a 2 euclidienne : fenetres vs genome global
@@ -500,7 +501,26 @@ def dendrogramme_tous(liste_chaos_especes, liste_dist_especes, seuil = 0.4):
 	z = linkage(dendo)
 	dendrogram(z)
 	
+def recuperer_matrices_dist(liste_fichiers, dossier='.'):
+	"""
+	Load les matrices de distances de format .npy
+	
+	input:
+	---------------
+	liste_fichiers = liste avec noms des fichiers .npy
+	dossier = nom du dossier ou se situent ces matrices. "." (dossier courant) par defaut.
 
+	output:
+	--------------
+	matrices = liste de matrices de distances 2a2
+	"""
+	matrices = []
+	for fich_esp in liste_fichiers :
+		matrix = np.load(dossier + "/" + fich_esp)
+		matrices.append(matrix)
+	return matrices
+		
+		
 if __name__ == "__main__":
 	"""
 	#chaos = freq
@@ -638,8 +658,8 @@ if __name__ == "__main__":
 	for i in range(len(liste_chaos4)):
 		Y.append(3)	
 	 
-	for linkage in ('ward', 'average', 'complete'):
-		clustering = AgglomerativeClustering(linkage=linkage, n_clusters=2)
+	for link in ('ward', 'average', 'complete'):
+		clustering = AgglomerativeClustering(linkage=link, n_clusters=2)
 		clustering.fit(liste_hierar)
 
 	
