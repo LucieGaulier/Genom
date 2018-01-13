@@ -12,7 +12,7 @@ import pylab
 from scipy.stats import chisquare
 from sklearn.decomposition import PCA
 from sklearn.cluster import AgglomerativeClustering
-from scipy.cluster.hierarchy import dendrogram, linkage
+from scipy.cluster.hierarchy import dendrogram, linkage, fcluster
 
 def genome_str(fichier):
 	"""
@@ -645,6 +645,8 @@ if __name__ == "__main__":
 	
 	z = linkage(liste_hierar)
 	dendrogram(z)
+	y_predit = fcluster(z, 4, criterion='maxclust') #4 le nombre de clusters, ici 4 especes
+	
 
 
 
