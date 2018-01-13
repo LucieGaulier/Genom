@@ -492,6 +492,7 @@ def dendrogramme_tous(liste_chaos_especes, liste_dist_especes, seuil = 0.4):
 	dendo = []
 	nom = {}
 	i = 0
+	cols = ["#FFFFFF","#C0C0C0","#808080","#000000","#FF0000","#800000","FFFF00","#808000","#00FF00","#008000","#00FFFF","#008080","#0000FF","#000080","#FF00FF","#800080"]
 	r = 0
 	for esp in xrange(len(liste_chaos_especes)) : #parcourt les especes
 		index, m = tri_signature(liste_dist_especes[esp], seuil) #Recupere indices des fenetres potentiellement TH
@@ -501,15 +502,17 @@ def dendrogramme_tous(liste_chaos_especes, liste_dist_especes, seuil = 0.4):
 		t = dendrogramme_1_espece(cl, pp)[0]
 		dendo += t #Fait une liste de chaos vectorises pour faire le dendogramme
 		temp = dendrogramme_1_espece(cl, pp)[1]
-		nom[i] = "pp_" + str(r)
+		nom[i] = cols[r]
 		for j in range(1,temp):
-			nom[i+j] = "cl_" + str(r)
+			nom[i+j] = cols[r]
 		i += j+1
+		if r + 1 > len(cols):
+			print "Pas assez de couleurs! :'("
 		r+=1
 	z = linkage(dendo)
 	link_cols = {}
 	for i, i12 in enumerate(z[:,:2].astype(int)):
-		c1, c2 = (link_cols[x] if x > len(z) else D_leaf_colors["%d"%x]for x in i12)
+		c1, c2 = (link_cols[x] if x > len(z) else nom["%d"%x]for x in i12)
 		link_cols[i+1+len(z)] = c1 
 	dendrogram(z, link_color_func=lambda x: link_cols[x])
 	print nom
@@ -641,7 +644,7 @@ if __name__ == "__main__":
 	distancesAref = distance_a_ref (liste_chaos, chaos_genome)
 	gen = jsdiv(np.ndarray.flatten(chaos_genome), np.ndarray.flatten(chaos2))
 
-	pp,liste_sign = signature_principale(index,liste_chaos2,0.40)
+	pp,liste_sign = signature_principale(index,liste_chaos2, dist2a2, 0.40)
 	cl,liste_cl = signature_cluster(b,liste_chaos2)
 	gen2 = jsdiv(np.ndarray.flatten(chaos_genome),np.ndarray.flatten(pp))
 	gen3 = jsdiv(np.ndarray.flatten(chaos_genome), np.ndarray.flatten(cl[0]))
@@ -727,6 +730,25 @@ D_leaf_colors = {"0": "#808080", # Unclustered gray
                  "20": "#1FB817"															
 														
                  }
+																	
+def color_dic(clusters_list_index):
+	"""
+	Cree un dictionnaire de couleurs
+	
+	input :
+	---------
+	
+	"""
+	d = {}
+	cols = ["#FFFFFF","#C0C0C0","#808080","#000000","#FF0000","#800000","FFFF00","#808000","#00FF00","#008000","#00FFFF","#008080","#0000FF","#000080","#FF00FF","#800080"]
+	compt = 0
+	for i, cl in enumerate(clusters_list_index):
+		if i > len(cols):
+			print "Pas assez de couleurs! :'("
+		for j in range(len(cl)):
+			d[str(compt)] = cols[i]
+			compt += 1
+	return d
 
 	
 #TODO : faire une liste avec les noms des especes, cl , pp
