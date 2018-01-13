@@ -45,14 +45,14 @@ def recuperer_matrices(chaos_directory, liste_fichiers, liste_dirs):
 if fenetres :
 	liste_chaos_fenetres = recuperer_matrices(chaos_directory, liste_fichiers, liste_dirs)
 	matrice_eucli_fen = matrice_distance2a2 (liste_chaos_fenetres)
-	matrice_js_fen = matrice_distance2a2_jsdiv (liste_chaos_fenetres)
 	np.save("matrice_dist_eucli_FENETRES_"+chaos_directory+".npy", matrice_eucli_fen)
+	matrice_js_fen = matrice_distance2a2_jsdiv (liste_chaos_fenetres)
 	np.save("matrice_dist_jsdiv_FENETRES_"+chaos_directory+".npy", matrice_js_fen)
 
 #Matrice distance global
 else :
 	liste_chaos_global = recuperer_matrices(chaos_directory, ["chaos_global.npy" for i in xrange(len(liste_genome_directories))], liste_genome_directories)
 	matrice_eucli_fen = matrice_distance2a2 (liste_chaos_global)
-	matrice_js_fen = matrice_distance2a2_jsdiv (liste_chaos_global)
 	np.save("matrice_dist_eucli_GLOBAL_"+chaos_directory+".npy", matrice_eucli_fen)
+	matrice_js_fen = matrice_distance2a2_jsdiv (liste_chaos_global)
 	np.save("matrice_dist_jsdiv_GLOBAL_"+chaos_directory+".npy", matrice_js_fen)
