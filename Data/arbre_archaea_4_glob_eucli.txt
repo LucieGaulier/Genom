@@ -1,0 +1,54 @@
+┬─┬Caldivirga_maquilingensis_IC-167
+│ └Desulfurococcus_kamchatkensis_1221n
+└─┬┬Candidatus_Korarchaeum_cryptofilum_OPF8
+  │└┬Archaeoglobus_fulgidus_DSM_4304
+  │ └┬┬┬Methanosaeta_thermophila_PT
+  │  ││└┬Methanocorpusculum_labreanum_Z
+  │  ││ └┬Methanoregula_boonei_6A8_chromosome
+  │  ││  └┬Methanocella_paludicola_SANAE_DNA
+  │  ││   └┬Methanosphaerula_palustris_E1-9c_chromosome
+  │  ││    └┬Haloarcula_marismortui_ATCC_43049_plasmid_pNG100
+  │  ││     └┬┬Methanopyrus_kandleri_AV19
+  │  ││      │└┬Methanoculleus_marisnigri_JR1
+  │  ││      │ └┬Halorhabdus_utahensis_DSM_12940
+  │  ││      │  └┬Halobacterium_sp._NRC-1
+  │  ││      │   └┬Halomicrobium_mukohataei_DSM_12286
+  │  ││      │    └Haloterrigena_turkmenica_DSM_5511_plasmid_pHTUR04
+  │  ││      └┬Halorubrum_lacusprofundi_ATCC_49239_chromosome_2
+  │  ││       └Natronomonas_pharaonis_DSM_2160_plasmid_PL131_complete_genome
+  │  │└┬Thermococcus_gammatolerans_EJ3
+  │  │ └┬Pyrobaculum_aerophilum_str._IM2
+  │  │  └┬Hyperthermus_butylicus_DSM_5456
+  │  │   └┬Aeropyrum_pernix_K1_DNA
+  │  │    └┬┬Pyrobaculum_arsenaticum_DSM_13514
+  │  │     │└Pyrobaculum_neutrophilum_V24Sta_chromosome
+  │  │     └┬Ignicoccus_hospitalis_KIN4_I
+  │  │      └Thermofilum_pendens_Hrk_5
+  │  └┬Haloquadratum_walsbyi_DSM_16790_complete_genome
+  │   └┬Thermoplasma_acidophilum_DSM_1728_complete_genome
+  │    └┬Methanospirillum_hungatei_JF-1
+  │     └┬┬Methanococcoides_burtonii_DSM_6242
+  │      │└Methanohalophilus_halophilus_strain_Z-7982_chromosome
+  │      └┬┬Methanosarcina_acetivorans_str._C2A
+  │       │└┬Methanosarcina_barkeri_str._Fusaro
+  │       │ └Methanosarcina_mazei_strain_Goe1
+  │       └┬Thermoplasma_volcanium_GSS1_DNA
+  │        └┬┬Picrophilus_torridus_DSM_9790
+  │         │└┬Nitrosopumilus_maritimus_SCM1
+  │         │ └┬Methanocaldococcus_fervens_AG86_plasmid_pMEFER01
+  │         │  └┬Nanoarchaeum_equitans_Kin4-M
+  │         │   └┬Methanobrevibacter_ruminantium_M1
+  │         │    └┬┬Methanococcus_maripaludis_C6
+  │         │     │└Methanococcus_vannielii_SB
+  │         │     └┬Methanobrevibacter_smithii_ATCC_35061
+  │         │      └┬Methanococcus_aeolicus_Nankai-3
+  │         │       └Methanosphaera_stadtmanae_DSM_3091
+  │         └┬Staphylothermus_marinus_F1
+  │          └┬Sulfolobus_acidocaldarius_DSM_639
+  │           └Sulfolobus_solfataricus_P2
+  └┬Metallosphaera_sedula_DSM_5348
+   └┬Archaeoglobus_profundus_DSM_5631
+    └┬Pyrococcus_abyssi_complete_genome
+     └┬Pyrococcus_furiosus_DSM_3638
+      └Pyrococcus_horikoshii_OT3_DNA
+
